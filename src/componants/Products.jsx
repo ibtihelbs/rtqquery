@@ -1,7 +1,9 @@
 import axios from "axios";
+import { useAddToCartMutation } from "../store/api";
 import { useEffect, useState } from "react";
 const Products = () => {
   const [data, setData] = useState(null);
+  const [addToCart, { isLoading, isError }] = useAddToCartMutation();
   const getdata = async () => {
     const res = await axios.get("https://dummyjson.com/products");
     setData(res.data);
@@ -9,7 +11,6 @@ const Products = () => {
   useEffect(() => {
     getdata();
   }, []);
-  console.log(data);
   return (
     <div>
       <h1>products</h1>
@@ -25,6 +26,9 @@ const Products = () => {
             const { title, thumbnail, price, discountPercentage, id } = v;
             return (
               <div
+                onClick={() => {
+                  addToCart({ title, thumbnail, price, id });
+                }}
                 key={id}
                 style={{ display: "flex", flexDirection: "column", gap: "8px" }}
               >

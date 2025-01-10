@@ -13,6 +13,7 @@ function App() {
         }}
         onClick={() => {
           setOpen(!open);
+          console.log(open);
         }}
       >
         {" "}
